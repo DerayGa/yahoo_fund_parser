@@ -34,6 +34,11 @@ function updateFundDiv(fundDiv, title, raw) {
   $(fundDiv).show();
 }
 
+function openTab(link){
+  chrome.tabs.create({
+    url: link
+  });
+}
 document.addEventListener('DOMContentLoaded', function() {
   var myFunds = ['F0GBR04ARJ:FO',  'F000000KVC:FO', 'F0GBR064TY:FO', 'F00000O2YN:FO',
   'F00000PLRX:FO', 'F0GBR064C4:FO']
@@ -51,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('.fundInfo').append(fundDiv);
 
+    $(fundDiv).click(function(){
+      openTab(link+fund);
+    });
     $.get(link + fund, function(data) {
       var i = data.indexOf('<ul class="Grid Pb-2"');
       var j = data.indexOf('</ul>', i) + 5;

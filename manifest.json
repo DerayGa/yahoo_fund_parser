@@ -17,6 +17,8 @@
     "default_popup": "popup.html"
   },
   "permissions": [
-    "*://*.yahoo.com/"
+    "*://*.yahoo.com/",
+    "activeTab",
+    "tabs"
   ]
 }
