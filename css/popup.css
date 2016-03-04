@@ -1,12 +1,12 @@
 .fundInfo{
-	width: 555px;
+	width: 535px;
 }
 
 .fund{
 	border: 2px solid #9E9E9E;
 	padding:5px;
 	display: inline-block;
-	width: 260px;
+	width: 250px;
 	margin: 1px;
 	text-align: center;
 	cursor: pointer;
@@ -32,7 +32,7 @@
 	text-overflow: ellipsis;
 }
 .value{
-	font-size: 20px;
+	font-size: 22px;
 	display: inline-block;
 	margin: 0px;
 	width: 45%;
@@ -50,4 +50,12 @@
 	width: 100%;
 	font-size: 12px;
 	text-align: right;
+}
+footer {
+	text-align: center;
+	margin-top:5px;
+}
+footer a{
+	display: inline-block;
+	color: #2196F3;
 }

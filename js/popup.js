@@ -5,8 +5,8 @@ function createFundDiv() {
     '<div class="info">' +
     '<span class="value" />' +
     '<span class="diff" />' +
-    '</div>' +
     '<span class="update" />' +
+    '</div>' +
     '</div>');
 
   return $(content);
@@ -27,11 +27,10 @@ function updateFundDiv(fundDiv, title, raw) {
   $('.update', fundDiv).text(update);
 
   var symbol = ''
-  if ($(diff).hasClass('rise')){
+  if ($(diff).hasClass('rise')) {
     $('.info', fundDiv).addClass('red');
     symbol = '▲';
-  }
-  else{
+  } else {
     $('.info', fundDiv).addClass('green');
     symbol = '▼';
   }
@@ -41,32 +40,35 @@ function updateFundDiv(fundDiv, title, raw) {
   $(fundDiv).show();
 }
 
-function openTab(link){
+function openTab(link) {
   chrome.tabs.create({
     url: link
   });
 }
-document.addEventListener('DOMContentLoaded', function() {
-  var myFunds = ['F0GBR04ARJ:FO',  'F000000KVC:FO', 'F0GBR064TY:FO', 'F00000O2YN:FO',
-  'F00000PLRX:FO', 'F0GBR064C4:FO']
 
-  var notMyFunds = ['F0GBR064C0:FO', 'F0GBR060KK:FO', 'F0GBR060HM:FO', 'F0GBR04SN7:FO'];
+function restore_options(callback) {
+  chrome.storage.sync.get({
+    fundList: []
+  }, callback);
+}
 
-  var link = 'https://tw.money.yahoo.com/fund/history/';
+function loadFund(link, fund){
+  var fundDiv = createFundDiv();
+  $(fundDiv).hide();
 
-  $.each(myFunds.concat(notMyFunds), function(index, fund){
-    var fundDiv = createFundDiv();
-    $(fundDiv).hide();
+  if (fund.owned)
+    $(fundDiv).addClass('have');
 
-    if($.inArray(fund, myFunds) > -1)
-      $(fundDiv).addClass('have');
+  $('.fundInfo').append(fundDiv);
 
-    $('.fundInfo').append(fundDiv);
+  $(fundDiv).click(function() {
+    openTab(link + fund.key);
+  });
 
-    $(fundDiv).click(function(){
-      openTab(link+fund);
-    });
-    $.get(link + fund, function(data) {
+  $.ajax({
+    url: link + fund.key,
+    type: 'GET',
+    success: function(data) {
       var i = data.indexOf('<ul class="Grid Pb-2"');
       var j = data.indexOf('</ul>', i) + 5;
       var raw = data.substring(i, j);
@@ -76,36 +78,23 @@ document.addEventListener('DOMContentLoaded', function() {
       var title = data.substring(i, j);
 
       updateFundDiv(fundDiv, title, raw);
+    },
+    /*error: function(data) {
+        console.log(data);
+    }*/
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var link = 'https://tw.money.yahoo.com/fund/history/';
+
+  restore_options(function(items){
+    $.each(items.fundList, function(index, fund){
+
+      if(!fund.key) return;
+
+      loadFund(link, fund);
     });
 
   });
 });
-
-
-/*
-<li class="Grid-U-3-4">
-                <div class="Fw-b Fz-xl C-n">貝萊德世界礦業基金 A2</div>
-            </li>
-
-<ul class="Grid Pb-2" id="yui_3_18_1_1_1457055541217_1613">
-        <li class="Grid-U-4-5" id="yui_3_18_1_1_1457055541217_1611">
-
-            <div class="Fl-start Fw-b Fz-30 Pend-10 C-n">23.07</div>
-
-            <div class="Fl-start Fz-m Pend-6 Pt-12">美元</div>
-
-                <div class="Fl-start number rise Pt-12">
-                  <i class="Icon Fz-l"></i>
-                </div>
-                <div class="Fl-start number rise Pt-8">
-                  <span class="Fz-xl">0.3</span>
-                </div>
-
-                <div class="Fl-start number rise Pstart-6 Pt-8 Fz-xl">(1.32%)</div>
-
-        </li>
-        <li class="Grid-U-1-5">
-            <div class="Ta-end Mt-16 remark">2016/03/02更新</div>
-        </li>
-    </ul>
-      */

@@ -16,9 +16,11 @@
     },
     "default_popup": "popup.html"
   },
+   "options_page": "options.html",
   "permissions": [
     "*://*.yahoo.com/",
     "activeTab",
-    "tabs"
+    "tabs",
+    "storage"
   ]
 }
