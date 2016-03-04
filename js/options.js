@@ -35,7 +35,7 @@ function restore_options() {
     fundList: []
   }, function(items) {
     //add default
-    if(items.fundList.length == 0){
+    /*if(items.fundList.length == 0){
       items.fundList.push({
         key: 'F0GBR04ARJ:FO', //礦業
         owned: true
@@ -76,7 +76,7 @@ function restore_options() {
         key: 'F0GBR060KK:FO', //菲律賓
         owned: false
       });
-    }
+    }*/
 
     var count = Math.max(items.fundList.length, 3);
 
