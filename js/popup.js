@@ -2,8 +2,10 @@ function createFundDiv() {
   var content = $('<div class="fund">' +
     '<div class="title"></div>' +
     '<hr>' +
-    '<div class="info"><span class="value" />' +
-    '<span class="diff" /></div>' +
+    '<div class="info">' +
+    '<span class="value" />' +
+    '<span class="diff" />' +
+    '</div>' +
     '<span class="update" />' +
     '</div>');
 
