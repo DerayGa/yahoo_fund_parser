@@ -88,9 +88,10 @@ function loadFund(link, fund){
 document.addEventListener('DOMContentLoaded', function() {
   var link = 'https://tw.money.yahoo.com/fund/history/';
 
+  $('footer .options').html(chrome.i18n.getMessage("options"));
+
   restore_options(function(items){
     $.each(items.fundList, function(index, fund){
-
       if(!fund.key) return;
 
       loadFund(link, fund);

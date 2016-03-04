@@ -17,6 +17,7 @@
     "default_popup": "popup.html"
   },
    "options_page": "options.html",
+  "default_locale" : "zh_TW",
   "permissions": [
     "*://*.yahoo.com/",
     "activeTab",
