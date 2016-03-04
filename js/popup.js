@@ -19,17 +19,22 @@ function updateFundDiv(fundDiv, title, raw) {
   var value = $('.Fl-start.Fw-b.Fz-30.Pend-10.C-n', raw).text();
   $('.value', fundDiv).text(value);
 
-  var diff = $('.Fl-start.number.rise.Pt-8', raw).text();
-  $('.diff', fundDiv).text(diff);
+  var diff = $('.Fl-start.number.Pt-8', raw);
 
   var update = $('.Ta-end.Mt-16.remark', raw).text();
   $('.update', fundDiv).text(update);
 
-  var v = parseFloat(diff.split('(')[0], 10);
-  if (v > 0)
+  var symbol = ''
+  if ($(diff).hasClass('rise')){
     $('.info', fundDiv).addClass('red');
-  else if (v < 0)
+    symbol = '▲';
+  }
+  else{
     $('.info', fundDiv).addClass('green');
+    symbol = '▼';
+  }
+
+  $('.diff', fundDiv).text(symbol + diff.text());
 
   $(fundDiv).show();
 }
@@ -82,31 +87,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <ul class="Grid Pb-2" id="yui_3_18_1_1_1457055541217_1613">
         <li class="Grid-U-4-5" id="yui_3_18_1_1_1457055541217_1611">
-            
+
             <div class="Fl-start Fw-b Fz-30 Pend-10 C-n">23.07</div>
-            
+
             <div class="Fl-start Fz-m Pend-6 Pt-12">美元</div>
-            
-            
-            
-                
+
                 <div class="Fl-start number rise Pt-12">
                   <i class="Icon Fz-l"></i>
                 </div>
                 <div class="Fl-start number rise Pt-8">
                   <span class="Fz-xl">0.3</span>
                 </div>
-                
-            
-            
-            
-            
-            
-                
+
                 <div class="Fl-start number rise Pstart-6 Pt-8 Fz-xl">(1.32%)</div>
-                
-            
-            
+
         </li>
         <li class="Grid-U-1-5">
             <div class="Ta-end Mt-16 remark">2016/03/02更新</div>
