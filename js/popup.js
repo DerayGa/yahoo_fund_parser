@@ -91,11 +91,19 @@ document.addEventListener('DOMContentLoaded', function() {
   $('footer .options').html(chrome.i18n.getMessage("options"));
 
   restore_options(function(items){
+    var owned = [];
+    var other = [];
     $.each(items.fundList, function(index, fund){
       if(!fund.key) return;
 
-      loadFund(link, fund);
+      if(fund.owned)
+        owned.push(fund);
+      else
+        other.push(fund);
     });
 
+    $.each(owned.concat(other), function(index, fund){
+      loadFund(link, fund);
+    });
   });
 });
