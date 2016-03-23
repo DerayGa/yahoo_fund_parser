@@ -77,6 +77,7 @@ function getYesterday() {
 
 function loadFund(link, fund){
   var fundDiv = createFundDiv();
+  $('.fundInfo').append(fundDiv);
 
   if (fund.owned)
     $(fundDiv).addClass('have');
@@ -95,7 +96,6 @@ function loadFund(link, fund){
       $(fundDiv).hide();
       loadByAJAX(cache, yesterday);
     }
-    $('.fundInfo').append(fundDiv);
   });
 
   //--------------
