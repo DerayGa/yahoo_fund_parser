@@ -37,8 +37,6 @@ function updateFundDiv(fundDiv, title, raw) {
   }
 
   $('.diff', fundDiv).text(symbol + diff.text());
-
-  $(fundDiv).show();
 }
 
 function openTab(link) {
@@ -79,17 +77,13 @@ function getYesterday() {
 
 function loadFund(link, fund){
   var fundDiv = createFundDiv();
-  $(fundDiv).hide();
 
   if (fund.owned)
     $(fundDiv).addClass('have');
 
-  $('.fundInfo').append(fundDiv);
-
   $(fundDiv).click(function() {
     openTab(link + fund.key);
   });
-
   //--------------
   restore_fund(fund.key, function(items) {
     var cache = items[fund.key];
@@ -98,8 +92,10 @@ function loadFund(link, fund){
     if (cache[yesterday]){
       loadByCache(cache.title, cache[yesterday]);
     } else {
+      $(fundDiv).hide();
       loadByAJAX(cache, yesterday);
     }
+    $('.fundInfo').append(fundDiv);
   });
 
   //--------------
@@ -121,6 +117,7 @@ function loadFund(link, fund){
         var title = data.substring(i, j);
 
         updateFundDiv(fundDiv, title, raw);
+        $(fundDiv).show();
 
         //save
         cache.title = title;
