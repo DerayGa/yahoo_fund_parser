@@ -37,6 +37,8 @@ function updateFundDiv(fundDiv, title, raw) {
   }
 
   $('.diff', fundDiv).text(symbol + diff.text());
+
+  return update.trim();
 }
 
 function openTab(link) {
@@ -116,12 +118,12 @@ function loadFund(link, fund){
         var j = data.indexOf('</li>', i) + 5;
         var title = data.substring(i, j);
 
-        updateFundDiv(fundDiv, title, raw);
+        var updateDate = updateFundDiv(fundDiv, title, raw);
         $(fundDiv).show();
 
         //save
         cache.title = title;
-        cache[yesterday] = raw;
+        cache[updateDate] = raw;
         var json = {};
         json[fund.key] = cache;
         chrome.storage.sync.set(json, function() {
