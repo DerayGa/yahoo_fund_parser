@@ -1,7 +1,8 @@
 # Yahoo Fund Parser
 
-## Available on Chrome Web Store
-[https://chrome.google.com/webstore/detail/yahoo-fund-parser](https://chrome.google.com/webstore/detail/yahoo-fund-parser/ckabdjihocbgfliinnbkmehlchgiiknp)
+## No longer maintain yahoo version, pls reference StockQ version
+https://github.com/DerayGa/stockq_fund_parser_chrome_extension
+
 
 ![fund.png](https://raw.githubusercontent.com/DerayGa/yahoo_fund_parser_chrome_extension/master/images/fund.png)
 
